@@ -5,18 +5,16 @@ const World = Matter.World;
 const Bodies = Matter.Bodies;
 const Body = Matter.Body;
 
+
 var block1
 var block2
 var block3
 var plane
+var engine
+var world
 
-var block1_options
-var block3_options
-var block2_options
 
-var block1_position
-var block2_position
-var block3_position
+
 
 function preload()
 {
@@ -36,7 +34,28 @@ function setup() {
 		isStatic : true,
 	
 	}
+
+	var block1_options = {
+		restitution : 0.5,
+		friction : 0.1,
+		frictionAir : 0.5
+	}
+
+	var block2_options = {
+		restitution : 0.7,
+		friction : 0.5,
+		frictionAir : 0.3
+	}
+
+	var block3_options = {
+		restitution : 0.3,
+		friction : 1,
+		frictionAir : 0
+	}
    
+	plane = Bodies.rectangle (400,590,800,20, plane_options);
+	World.add (world,plane)
+
 	block1 = Bodies.circle(200,50,20,20,block1_options);
     World.add (world,block1);
 
@@ -46,26 +65,7 @@ function setup() {
 	block3 = Bodies.rectangle (600,50,20,30,block3_options);
 	World.add (world,block3);
 
-	block1_options = {
-		restitution : 0.5,
-		friction : 0.1,
-		frictionAir : 0.5
-	}
-
-	block2_options = {
-		restitution : 0.7,
-		friction : 0.5,
-		frictionAir : 0.3
-	}
-
-	block3_options = {
-		restitution : 0.3,
-		friction : 1,
-		frictionAir : 0
-	}
-
 	
-
 	Engine.run(engine);
   
 }
@@ -78,11 +78,13 @@ function draw() {
 
   Engine.update(engine)
 
-  ellipse (block1_position.x,block1_position.y,20,20);
+  ellipse (block1.position.x,block1.position.y,20,20);
 
-  rect (block2_position.x,block2_position.y,20,20);
+  rect (block2.position.x,block2.position.y,20,20);
 
-  rect(block3_position.x,block3_position.y,20,20);
+  rect(block3.position.x,block3.position.y,20,20);
+
+  rect (plane.position.x, plane.position.y, 20,20)
   
   drawSprites();
  
